@@ -10,7 +10,11 @@ app = create_app('development')
 manager = Manager(app)
 migrate = Migrate(app,db)
 
+def createall():
+    db.create_all()
+
 manager.add_command('server',Server)
+# manager.add_command('create', createall)
 manager.add_command('db',MigrateCommand)
 
 @manager.command

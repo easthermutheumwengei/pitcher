@@ -16,7 +16,7 @@ def index():
     '''
     pitch = Pitch.query.filter_by().first()
     title = 'Home'
-    businesspitch= Pitch.query.filter_by(category="businesspitch")
+    businesspitch = Pitch.query.filter_by(category="businesspitch")
     interviewpitch = Pitch.query.filter_by(category="interviewpitch")
     techpitch = Pitch.query.filter_by(category="techpitch")
     pickuppitch = Pitch.query.filter_by(category="pickuppitch")
@@ -28,19 +28,20 @@ def index():
                            upvotes=upvotes)
 
 
-
 @main.route('/pickup', methods=['GET', 'POST'])
 def pickup():
     pitch = Pitch.query.filter_by().first()
     pickuppitch = Pitch.query.filter_by(category="pickuppitch")
     return render_template('pick-up.html', pitch=pitch, pickuppitch=pickuppitch)
 
+
 @main.route('/business', methods=['GET', 'POST'])
 def business():
     pitch = Pitch.query.filter_by().first()
-    businesspitch= Pitch.query.filter_by(category="businesspitch")
+    businesspitch = Pitch.query.filter_by(category="businesspitch")
 
     return render_template('business.html', businesspitch=businesspitch, pitch=pitch)
+
 
 @main.route('/interview', methods=['GET', 'POST'])
 def interview():
@@ -49,11 +50,13 @@ def interview():
 
     return render_template('interview.html', pitch=pitch, interviewpitch=interviewpitch)
 
+
 @main.route('/technology', methods=['GET', 'POST'])
 def technology():
     techpitch = Pitch.query.filter_by(category="techpitch")
     pitch = Pitch.query.filter_by().first()
     return render_template('technology.html', pitch=pitch, techpitch=techpitch)
+
 
 @main.route('/pitches/new/', methods=['GET', 'POST'])
 @login_required
@@ -123,20 +126,20 @@ def downvote(pitch_id):
     return redirect(url_for('main.index'))
 
 
-
 @main.route('/user/<uname>')
 def profile(uname):
-    user = User.query.filter_by(username = uname).first()
+    user = User.query.filter_by(username=uname).first()
 
     if user is None:
         abort(404)
 
-    return render_template("profile/profile.html", user = user)
+    return render_template("profile/profile.html", user=user)
 
-@main.route('/user/<uname>/update',methods = ['GET','POST'])
+
+@main.route('/user/<uname>/update', methods=['GET', 'POST'])
 @login_required
 def update_profile(uname):
-    user = User.query.filter_by(username = uname).first()
+    user = User.query.filter_by(username=uname).first()
     if user is None:
         abort(404)
 
@@ -148,17 +151,18 @@ def update_profile(uname):
         db.session.add(user)
         db.session.commit()
 
-        return redirect(url_for('.profile',uname=user.username))
+        return redirect(url_for('.profile', uname=user.username))
 
-    return render_template('profile/update.html',form =form)
+    return render_template('profile/update.html', form=form)
 
-@main.route('/user/<uname>/update/pic',methods= ['POST'])
+
+@main.route('/user/<uname>/update/pic', methods=['POST'])
 @login_required
 def update_pic(uname):
-    user = User.query.filter_by(username = uname).first()
+    user = User.query.filter_by(username=uname).first()
     if 'photo' in request.files:
         filename = photos.save(request.files['photo'])
         path = f'photos/{filename}'
         user.profile_pic_path = path
         db.session.commit()
-    return redirect(url_for('main.profile',uname=uname))
+    return redirect(url_for('main.profile', uname=uname))
