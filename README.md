@@ -1,5 +1,5 @@
 # Pitcher
-You can submit your one-minute or less pitch and other users will vote on it and leave comments to give their feedback on it. The pitches are organized by category.https://nimo-pitch.herokuapp.com/
+You can submit your one-minute or less pitch and other users will vote on it and leave comments to give their feedback on it. The pitches are organized by category.https://pitchrun.herokuapp.com/
 ## By Easther Mutheu
 
 ## Description
